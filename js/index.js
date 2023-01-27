@@ -8,7 +8,7 @@
 // cleancode = nomes significativos
 
 import resetControls from "./controls";
-import { countdown, resetTimer, updateTimerDisplay } from "./timer";
+import { Timer } from "./timer";
 
 const buttonPlay = document.querySelector(".play");
 const buttonPause = document.querySelector(".pause");
@@ -21,6 +21,13 @@ const secondsDisplay = document.querySelector(".seconds");
 let minutes = Number(minutesDisplay.textContent);
 let timerTimeOut;
 
+//aqui injetamos as dependências da factory e colocamos em uma variável
+const timer = Timer({
+  minutesDisplay,
+  secondsDisplay,
+  timerTimeOut,
+  resetControls,
+});
 
 buttonPlay.addEventListener("click", function () {
   buttonPlay.classList.add("hide");
@@ -28,7 +35,8 @@ buttonPlay.addEventListener("click", function () {
   buttonSet.classList.add("hide");
   buttonStop.classList.remove("hide");
 
-  countdown();
+  // usamos aqui o objeto
+  timer.countdown();
 });
 
 buttonPause.addEventListener("click", function () {
@@ -39,7 +47,8 @@ buttonPause.addEventListener("click", function () {
 
 buttonStop.addEventListener("click", function () {
   resetControls();
-  resetTimer();
+  // usamos aqui o objeto
+  timer.resetTimer();
 });
 
 buttonSoundOn.addEventListener("click", function () {
@@ -55,7 +64,8 @@ buttonSoundOff.addEventListener("click", function () {
 buttonSet.addEventListener("click", function () {
   let newMinutes = prompt("Quantos minutos ?");
   if (!newMinutes) {
-    resetTimer();
+    // usamos aqui o objeto
+    timer.resetTimer();
     return;
   }
 

@@ -1,34 +1,48 @@
-function updateTimerDisplay(minutes, seconds) {
-  minutesDisplay.textContent = String(minutes).padStart(2, "0");
-  secondsDisplay.textContent = String(seconds).padStart(2, "0");
-}
 
-function resetTimer() {
-  updateTimerDisplay(minutes, 0);
-  clearTimeout(timerTimeOut);
-}
+//aqui criamos uma fábrica(factory) para colocar tudo o que precisamos dentro de uma função e retorna para fora o objeto desestruturado
 
-function countdown() {
-  timerTimeOut = setTimeout(function () {
-    let seconds = Number(secondsDisplay.textContent);
-    let minutes = Number(minutesDisplay.textContent);
+export function Timer({
+  minutesDisplay,
+  secondsDisplay,
+  timerTimeOut,
+  resetControls,
+}) {
 
+  function updateTimerDisplay(minutes, seconds) {
+    minutesDisplay.textContent = String(minutes).padStart(2, "0");
+    secondsDisplay.textContent = String(seconds).padStart(2, "0");
+  }
+
+  function resetTimer() {
     updateTimerDisplay(minutes, 0);
+    clearTimeout(timerTimeOut);
+  }
 
-    if (minutes <= 0) {
-      resetControls();
-      return;
-    }
+  function countdown() {
+    timerTimeOut = setTimeout(function () {
+      let seconds = Number(secondsDisplay.textContent);
+      let minutes = Number(minutesDisplay.textContent);
 
-    if (seconds <= 0) {
-      seconds = 2;
-      --minutes;
-    }
+      updateTimerDisplay(minutes, 0);
 
-    updateTimerDisplay(minutes, String(seconds - 1));
+      if (minutes <= 0) {
+        resetControls();
+        return;
+      }
 
-    countdown();
-  }, 1000);
+      if (seconds <= 0) {
+        seconds = 2;
+        --minutes;
+      }
+
+      updateTimerDisplay(minutes, String(seconds - 1));
+
+      countdown();
+    }, 1000);
+  }
+
+  return {
+    countdown,
+    resetTimer,
+  };
 }
-
-export { countdown, resetTimer, updateTimerDisplay };
