@@ -1,14 +1,5 @@
-// DOM = Document Object Model.
-// Event-driven = programação direcionada á eventos.
-// Programação Imperativa = dar ordens passo a passo do que deve ser feito.
-// Programação Declarativa = programar de forma mais reduzida.
-// Callback = função passada como argumento.
-// Refatoração = deixar o código mais performático sem alterar suas funcionalidades.
-// Recursividade = é quando uma função chama ela mesma.
-// cleancode = nomes significativos
-
-import resetControls from "./controls";
-import { Timer } from "./timer";
+import Controls from "./controls.js";
+import Timer from "./timer.js";
 
 const buttonPlay = document.querySelector(".play");
 const buttonPause = document.querySelector(".pause");
@@ -18,37 +9,33 @@ const buttonSoundOn = document.querySelector(".sound-on");
 const buttonSoundOff = document.querySelector(".sound-off");
 const minutesDisplay = document.querySelector(".minutes");
 const secondsDisplay = document.querySelector(".seconds");
-let minutes = Number(minutesDisplay.textContent);
-let timerTimeOut;
 
-//aqui injetamos as dependências da factory e colocamos em uma variável
+const controls = Controls({
+  buttonPause,
+  buttonPlay,
+  buttonSet,
+  buttonStop,
+});
+
 const timer = Timer({
   minutesDisplay,
   secondsDisplay,
-  timerTimeOut,
-  resetControls,
+  resetControls: controls.reset,
 });
 
 buttonPlay.addEventListener("click", function () {
-  buttonPlay.classList.add("hide");
-  buttonPause.classList.remove("hide");
-  buttonSet.classList.add("hide");
-  buttonStop.classList.remove("hide");
-
-  // usamos aqui o objeto
+  controls.play();
   timer.countdown();
 });
 
 buttonPause.addEventListener("click", function () {
-  buttonPause.classList.add("hide");
-  buttonPlay.classList.remove("hide");
-  clearTimeout(timerTimeOut);
+  controls.pause();
+  timer.hold();
 });
 
 buttonStop.addEventListener("click", function () {
-  resetControls();
-  // usamos aqui o objeto
-  timer.resetTimer();
+  controls.reset();
+  timer.reset();
 });
 
 buttonSoundOn.addEventListener("click", function () {
@@ -62,13 +49,13 @@ buttonSoundOff.addEventListener("click", function () {
 });
 
 buttonSet.addEventListener("click", function () {
-  let newMinutes = prompt("Quantos minutos ?");
+  let newMinutes = controls.getMinutes();
+
   if (!newMinutes) {
-    // usamos aqui o objeto
-    timer.resetTimer();
+    timer.reset();
     return;
   }
 
-  minutes = newMinutes;
-  updateTimerDisplay(minutes, 0);
+  timer.updateDisplay(newMinutes, 0);
+  timer.updateMinutes(newMinutes);
 });
