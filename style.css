@@ -8,10 +8,10 @@
   --bg-color: #121214;
 
   --base-color: 194;
-  --primary-color: hsl(var(--base-color), 100%, 63%);
   --bg-primary-light: hsla(var(--base-color), 100%, 63%, 0.13);
+  --primary-color: hsl(var(--base-color), 100%, 63%);
 
-  --text-color: #ffffff;
+  --text-color: #FFFFFF;
 
   font-size: 62.5%;
 }
@@ -20,7 +20,7 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
 
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 
   display: grid;
   min-height: 100vh;
@@ -48,8 +48,8 @@ button svg {
 }
 
 main {
-    align-self: end;
-    justify-self: center;
+  align-self: end;
+  justify-self: center;
 }
 
 #timer {
@@ -69,14 +69,13 @@ main {
 
   border-radius: 9999px;
 
-  /* min, ideal, max */
   width: clamp(10rem, 10rem + 30vw, 22.8rem);
-  height: clamp(8rem, 5rem + 10vh, 10.8rem);
+  height: clamp(8rem, 5rem + 10vw, 10.8rem)
 }
 
 footer {
-    align-self: end;
-    justify-self: end;
+  align-self: end;
+  justify-self: end;
 
-    padding: 0 4rem 3.2rem 0;
+  padding: 0 4rem 3.2rem 0;
 }

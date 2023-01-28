@@ -1,7 +1,7 @@
-import Controls from "./controls.js";
-import Timer from "./timer.js";
-import Sound from "./sounds.js";
-import Events from "./events.js";
+import Controls from "./controls.js"
+import Timer from "./timer.js"
+import Sound from "./sounds.js"
+import Events from "./events.js"
 import {
   buttonPause,
   buttonPlay,
@@ -9,21 +9,21 @@ import {
   buttonStop,
   minutesDisplay,
   secondsDisplay,
-} from "./elements.js";
+} from "./elements.js"
 
 const controls = Controls({
   buttonPause,
   buttonPlay,
   buttonSet,
-  buttonStop,
-});
+  buttonStop
+})
 
 const timer = Timer({
-  minutesDisplay,
-  secondsDisplay,
-  resetControls: controls.reset,
-});
+  minutesDisplay, 
+  secondsDisplay, 
+  resetControls: controls.reset
+})
 
-const sound = Sound();
+const sound = Sound()
 
-Events({ controls, timer, sound });
+Events({controls, timer, sound})
